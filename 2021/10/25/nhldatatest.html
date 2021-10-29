@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      3 min read
     
 </span></p>
 
@@ -189,64 +189,6 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">player_stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">nhl_stats_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">players_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;person_id&#39;</span><span class="p">)</span>
-<span class="n">reduced_stats_df</span> <span class="o">=</span> <span class="n">nhl_player_stats_df</span><span class="p">[[</span>
-    <span class="s1">&#39;person_id&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;assists&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;goals&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;pim&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;shots&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;games&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;hits&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;power_play_goals&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;power_play_assists&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;blocked_shots&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;shifts&#39;</span><span class="p">,</span>
-<span class="p">]]</span>
-<span class="n">career_stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">reduced_stats_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;person_id&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="n">birth_months_df</span> <span class="o">=</span> <span class="n">players_df</span><span class="p">[[</span><span class="s1">&#39;person_id&#39;</span><span class="p">,</span> <span class="s1">&#39;Year Grouping&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_month_number&#39;</span><span class="p">]]</span>
-<span class="n">career_stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">career_stats_df</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">birth_months_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;person_id&#39;</span><span class="p">)</span>
-<span class="n">career_stats_df</span> <span class="o">=</span> <span class="n">career_stats_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;birth_month_number&#39;</span><span class="p">)</span>
-<span class="n">career_stats_df</span> <span class="o">=</span> <span class="n">career_stats_df</span><span class="p">[[</span>
-    <span class="s1">&#39;Year Grouping&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;assists&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;goals&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;pim&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;shots&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;games&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;hits&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;power_play_goals&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;power_play_assists&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;blocked_shots&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;shifts&#39;</span><span class="p">,]]</span>
-<span class="n">rename_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;power_play_goals&#39;</span><span class="p">:</span> <span class="s1">&#39;power play goals&#39;</span><span class="p">,</span> 
-              <span class="s1">&#39;power_play_assists&#39;</span><span class="p">:</span> <span class="s1">&#39;power play assists&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;blocked_shots&#39;</span><span class="p">:</span> <span class="s1">&#39;blocked shots&#39;</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">career_stats_df</span> <span class="o">=</span> <span class="n">career_stats_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename_map</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">career_stats_df</span>
-<span class="n">career_stats_df</span><span class="p">[</span><span class="s1">&#39;points&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;goals&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;assists&#39;</span><span class="p">]</span>
-<span class="n">career_stats_df</span><span class="p">[</span><span class="s1">&#39;goals per game&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;goals&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;games&#39;</span><span class="p">]</span> 
-<span class="n">career_stats_df</span><span class="p">[</span><span class="s1">&#39;assists per game&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;assists&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;games&#39;</span><span class="p">]</span> 
-<span class="n">career_stats_df</span><span class="p">[</span><span class="s1">&#39;points per game&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;points&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;games&#39;</span><span class="p">]</span> 
-<span class="n">career_stats_df</span><span class="p">[</span><span class="s1">&#39;power play points&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;power play goals&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;power play assists&#39;</span><span class="p">]</span> 
-<span class="n">career_stats_df</span><span class="p">[</span><span class="s1">&#39;shooting percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;goals&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;shots&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
